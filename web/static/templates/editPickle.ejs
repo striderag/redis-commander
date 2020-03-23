@@ -6,27 +6,16 @@
 <div id="itemData">
   <label>Key: <b><%= key %></b></label>
   <label>TTL: <b><%= ttl %></b></label>
-  <label>Type: <b>String (Binary)</b></label>
+  <label>Type: <b>String (Pickle(Binary))</b></label>
   <!-- read only for now, no binary data editing -->
-  <div class="binaryView">
-    <div class="binaryView-offset">
+  <div class="pickleView">
+    <div class="pickleView-offset">
     <% for (var pos in positions) { %>
       <b><%= positions[pos] %></b>
     <% } %>
     </div>
-    <div class="binaryView-hex">
-      <% for (var itemHex in value) {
-           if (value.hasOwnProperty(itemHex)) { %>
-      <span onclick="BinaryView.selectItem(this, '.binaryView-char')"><%= BinaryView.toHex(value[itemHex], 2) %></span>
-      <%   }
-         } %>
-    </div>
-    <div class="binaryView-char">
-      <% for (var itemChar in value) {
-           if (value.hasOwnProperty(itemChar)) { %>
-      <span onclick="BinaryView.selectItem(this, '.binaryView-hex')"><%= BinaryView.toChar(value[itemChar]) %></span>
-      <%   }
-         } %>
+    <div class="pickleView-hex">
+      <span><%= new PythonPickle(new KaitaiStream(value)); %></span>
     </div>
   </div>
   </span>
